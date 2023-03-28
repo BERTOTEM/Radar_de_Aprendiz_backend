@@ -1,19 +1,32 @@
 package radar_de_aprendiz.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.server.RequestPredicates;
+
+
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
+
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
 public class RouterRest {
+
+    @Bean
+    public RouterFunction<ServerResponse> routerFunction(Handler handler) {
+        return route(GET("/api/listarRadares"), handler::getAllRadar)
+                .andRoute(POST("/api/AgregarArea"), handler::CreateArea)
+                .andRoute(POST("/api/CrearRadar"), handler::CreateRadar)
+                .and(route(GET("/api/listarRadar/{nombre}"), handler::getOneRadar));
+    }
+
 
     @Bean
     public RouterFunction<ServerResponse> guardarLiga(Handler handler) {
