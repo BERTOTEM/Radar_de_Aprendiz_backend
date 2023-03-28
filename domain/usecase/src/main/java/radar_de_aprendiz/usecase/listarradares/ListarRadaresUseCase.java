@@ -1,19 +1,16 @@
-package radar_de_aprendiz.usecase.creararea;
+package radar_de_aprendiz.usecase.listarradares;
 
 import lombok.RequiredArgsConstructor;
-import radar_de_aprendiz.model.area.Area;
 import radar_de_aprendiz.model.radar.Radar;
 import radar_de_aprendiz.model.radar.gateways.RadarRepository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
-public class CrearAreaUseCase {
-
+public class ListarRadaresUseCase {
     private final RadarRepository radarRepository;
 
-    public Mono<Radar>crearArea(Area area)
-    {
-
-        return  radarRepository.AgregarArea(area.getRadarNombre(), area);
+    public Flux<Radar> apply() {
+        return radarRepository.ListarRadares();
     }
 }

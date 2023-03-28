@@ -12,6 +12,7 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 public class Area {
     private String area;
+    private String radarNombre;
     private String descriptor;
     private int factual;
     private int conceptual;

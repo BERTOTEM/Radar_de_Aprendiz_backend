@@ -13,8 +13,9 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class RouterRest {
     @Bean
     public RouterFunction<ServerResponse> routerFunction(Handler handler) {
-        return route(GET("/api/usecase/path"), handler::listenGETUseCase)
-                .andRoute(POST("/api/CrearArea"), handler::CreateArea)
-                .and(route(GET("/api/otherusercase/path"), handler::listenGETOtherUseCase));
+        return route(GET("/api/listarRadares"), handler::getAllRadar)
+                .andRoute(POST("/api/AgregarArea"), handler::CreateArea)
+                .andRoute(POST("/api/CrearRadar"), handler::CreateRadar)
+                .and(route(GET("/api/listarRadar/{nombre}"), handler::getOneRadar));
     }
 }
