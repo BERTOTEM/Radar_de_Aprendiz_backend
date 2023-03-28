@@ -18,6 +18,6 @@ public class Liga {
     private String periodo;
     private List<?> aprendices;
     private String coach;
-    private String año;
+    private String anio;
     private String radar;
 }

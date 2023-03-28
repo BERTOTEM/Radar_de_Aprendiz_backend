@@ -6,8 +6,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import radar_de_aprendiz.model.liga.Liga;
 import radar_de_aprendiz.model.liga.gateways.LigaRepository;
 import org.springframework.stereotype.Repository;
-import org.reactivecommons.utils.ObjectMapper;
-import radar_de_aprendiz.mongo.document.LigaDocument;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -22,16 +20,14 @@ public class MongoRepositoryAdapterL implements LigaRepository
     @Override
     public Mono<Liga> findById(String id) {
         var query = new Query(Criteria.where("id").is(id));
-        return template.findById(query,Liga.class,"liga");
+        return template.findOne(query,Liga.class);
     }
-
     @Override
     public Mono<Liga> save(Liga liga) {
         return template.save(liga);
     }
-
     @Override
-    public Flux<Liga> getAll() {
+    public Flux<Liga> getAll(){
         return template.findAll(Liga.class);
     }
 }

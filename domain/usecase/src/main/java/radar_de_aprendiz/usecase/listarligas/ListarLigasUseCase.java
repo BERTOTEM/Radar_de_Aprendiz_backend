@@ -7,8 +7,8 @@ import reactor.core.publisher.Flux;
 
 @RequiredArgsConstructor
 public class ListarLigasUseCase {
-    private final LigaRepository repository;
-    public Flux<Liga> getLigas(){
-        return repository.getAll();
+    private final LigaRepository ligaRepository;
+    public Flux<Liga> listLigas() {
+        return ligaRepository.getAll();
     }
 }
