@@ -28,7 +28,6 @@ public class MongoRepositoryAdapterR implements RadarRepository
         return template.save(radar);
     }
 
-
     @Override
     public Mono<Radar> AgregarArea(String nombre, Area area) {
         Query query = new Query(Criteria.where("nombre").is(nombre));
@@ -46,7 +45,6 @@ public class MongoRepositoryAdapterR implements RadarRepository
                     }
                 });
     }
-
     @Override
     public Mono<Radar> ListarRadar(String nombre) {
         var query = new Query(Criteria.where("nombre").is(nombre));
