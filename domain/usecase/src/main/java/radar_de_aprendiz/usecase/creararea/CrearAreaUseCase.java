@@ -13,7 +13,6 @@ public class CrearAreaUseCase {
 
     public Mono<Radar>crearArea(Area area)
     {
-
         return  radarRepository.AgregarArea(area.getRadarNombre(), area);
     }
 }

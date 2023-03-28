@@ -32,9 +32,19 @@ public class MongoRepositoryAdapterR implements RadarRepository
     @Override
     public Mono<Radar> AgregarArea(String nombre, Area area) {
         Query query = new Query(Criteria.where("nombre").is(nombre));
-        Update update = new Update().addToSet("areas", area);
-        return template.updateFirst(query, update, Radar.class)
-                .flatMap(result -> template.findOne(query, Radar.class));
+        //Update update = new Update().addToSet("areas", area);
+        return template.findOne(query, Radar.class)
+                .flatMap(radar -> {
+                    if (radar != null) {
+                        // El radar existe, se agrega el área
+                        Update update = new Update().addToSet("areas", area);
+                        return template.updateFirst(query, update, Radar.class)
+                                .then(template.findOne(query, Radar.class));
+                    } else {
+                        // El radar no existe, se devuelve un Mono vacío
+                        return Mono.empty();
+                    }
+                });
     }
 
     @Override
