@@ -28,25 +28,33 @@ import reactor.core.publisher.Mono;
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
 @Component
-
-
 public class Handler {
+
+    private final WebClient webClient;
+    private final CrearLigaUseCase crearLigaUseCase;
+    private final ListarLigasUseCase listarLigasUseCase;
+    private final TraerLigaUseCase traerLigaUseCase;
     private final CrearAreaUseCase crearAreaUseCase;
     private final CrearRadarUseCase crearRadarUseCase;
-    private  final ListarRadaresUseCase listarRadaresUseCase;
-
+    private final ListarRadaresUseCase listarRadaresUseCase;
     private final ListarRadarUseCase listarRadarUseCase;
 
-    static Mono<ServerResponse> notFound = ServerResponse.notFound().build();
-    public Mono<ServerResponse> listenGETUseCase(ServerRequest serverRequest) {
-        // usecase.logic();
-        return ServerResponse.ok().bodyValue("");
+    public Handler(WebClient.Builder webClientBuilder, CrearLigaUseCase crearLigaUseCase,
+                   ListarLigasUseCase listarLigasUseCase, TraerLigaUseCase traerLigaUseCase,
+                   CrearAreaUseCase crearAreaUseCase, CrearRadarUseCase crearRadarUseCase,
+                   ListarRadaresUseCase listarRadaresUseCase, ListarRadarUseCase listarRadarUseCase) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8090").build();
+        this.crearLigaUseCase = crearLigaUseCase;
+        this.listarLigasUseCase = listarLigasUseCase;
+        this.traerLigaUseCase = traerLigaUseCase;
+        this.crearAreaUseCase = crearAreaUseCase;
+        this.crearRadarUseCase = crearRadarUseCase;
+        this.listarRadaresUseCase = listarRadaresUseCase;
+        this.listarRadarUseCase = listarRadarUseCase;
+
     }
 
-    public Mono<ServerResponse> listenGETOtherUseCase(ServerRequest serverRequest) {
-        // useCase2.logic();
-        return ServerResponse.ok().bodyValue("");
-    }
+    static Mono<ServerResponse> notFound = ServerResponse.notFound().build();
 
     public Mono<ServerResponse> CreateArea(ServerRequest serverRequest) {
         Mono<Area> areaMono = serverRequest.bodyToMono(Area.class);
@@ -77,20 +85,6 @@ public class Handler {
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(listarRadaresUseCase.apply(), Radar.class);
-
-
-
-    private final WebClient webClient;
-    private final CrearLigaUseCase crearLigaUseCase;
-    private final ListarLigasUseCase listarLigasUseCase;
-    private final TraerLigaUseCase traerLigaUseCase;
-    
-
-    public Handler(WebClient.Builder webClientBuilder, CrearLigaUseCase crearLigaUseCase, ListarLigasUseCase listarLigasUseCase, TraerLigaUseCase traerLigaUseCase) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8090").build();
-        this.crearLigaUseCase = crearLigaUseCase;
-        this.listarLigasUseCase = listarLigasUseCase;
-        this.traerLigaUseCase = traerLigaUseCase;
     }
     
     public Mono<ServerResponse> saveLiga(ServerRequest serverRequest) {

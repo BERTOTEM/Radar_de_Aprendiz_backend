@@ -12,17 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-public class MongoConfigL {
+public class MongoConfig {
 
     @Bean
-    public MongoDBSecretL dbSecret(@Value("${spring.data.mongodb.uri}") String uri) {
-        return MongoDBSecretL.builder()
+    public MongoDBSecret dbSecret(@Value("${spring.data.mongodb.uri}") String uri) {
+        return MongoDBSecret.builder()
                 .uri(uri)
                 .build();
     }
 
     @Bean
-    public ReactiveMongoClientFactory mongoProperties(MongoDBSecretL secret) {
+    public ReactiveMongoClientFactory mongoProperties(MongoDBSecret secret) {
         MongoProperties properties = new MongoProperties();
         properties.setUri(secret.getUri());
 
