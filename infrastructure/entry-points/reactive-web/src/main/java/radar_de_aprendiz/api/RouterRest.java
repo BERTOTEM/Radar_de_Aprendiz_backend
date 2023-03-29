@@ -40,10 +40,20 @@ public class RouterRest {
                 ,handler::getLiga);
     }
 
-//    @Bean
-//    public RouterFunction<ServerResponse> traerAprendices(Handler handler) {
-//        return route(RequestPredicates.GET("api/mostrarAprendices").and(accept(MediaType.APPLICATION_JSON))
-//                ,handler::getAprendices);
-//    }
+    @Bean
+    public RouterFunction<ServerResponse> traerAprendices(Handler handler) {
+        return route(POST("api/liga/aprendiz/{nombre}").and(accept(MediaType.APPLICATION_JSON))
+                ,handler::AgregarAprendiz);
+    }
 
+    @Bean
+    public RouterFunction<ServerResponse> crearAprendiz(Handler handler) {
+        return route(POST("api/aprendiz").and(accept(MediaType.APPLICATION_JSON))
+                ,handler::crearAprendiz);
+    }
+    @Bean
+    public RouterFunction<ServerResponse> listarAprendices(Handler handler) {
+        return route(GET("api/aprendices").and(accept(MediaType.APPLICATION_JSON))
+                ,handler::listarAprendices);
+    }
 }

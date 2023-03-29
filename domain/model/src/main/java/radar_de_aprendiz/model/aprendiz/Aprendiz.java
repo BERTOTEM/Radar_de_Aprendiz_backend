@@ -13,12 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class Aprendiz {
-    private String id;
-    private String collectionId;
-    private String collectionName;
-    private String created;
-    private String updated;
-
     private String nombre;
-    private List<?> calificaciones;
+    private List<Integer> calificaciones;
 }

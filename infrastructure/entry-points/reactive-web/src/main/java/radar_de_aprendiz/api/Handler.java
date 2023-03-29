@@ -1,6 +1,7 @@
 package radar_de_aprendiz.api;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -9,8 +10,11 @@ import org.springframework.stereotype.Component;
 import radar_de_aprendiz.model.aprendiz.Aprendiz;
 import radar_de_aprendiz.model.area.Area;
 import radar_de_aprendiz.model.radar.Radar;
+import radar_de_aprendiz.usecase.agregaraprendiz.AgregarAprendizUseCase;
+import radar_de_aprendiz.usecase.crearaprendiz.CrearAprendizUseCase;
 import radar_de_aprendiz.usecase.creararea.CrearAreaUseCase;
 import radar_de_aprendiz.usecase.crearradar.CrearRadarUseCase;
+import radar_de_aprendiz.usecase.listaraprendices.ListarAprendicesUseCase;
 import radar_de_aprendiz.usecase.listarradar.ListarRadarUseCase;
 import radar_de_aprendiz.usecase.listarradares.ListarRadaresUseCase;
 
@@ -30,32 +34,20 @@ import java.util.List;
 
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
+@AllArgsConstructor
 @Component
 public class Handler {
 
-    private final WebClient webClient;
     private final CrearLigaUseCase crearLigaUseCase;
     private final ListarLigasUseCase listarLigasUseCase;
     private final TraerLigaUseCase traerLigaUseCase;
+    private final AgregarAprendizUseCase agregarAprendizUseCase;
+    private final CrearAprendizUseCase crearAprendizUseCase;
+    private final ListarAprendicesUseCase listarAprendicesUseCase;
     private final CrearAreaUseCase crearAreaUseCase;
     private final CrearRadarUseCase crearRadarUseCase;
     private final ListarRadaresUseCase listarRadaresUseCase;
     private final ListarRadarUseCase listarRadarUseCase;
-
-    public Handler(WebClient.Builder webClientBuilder, CrearLigaUseCase crearLigaUseCase,
-                   ListarLigasUseCase listarLigasUseCase, TraerLigaUseCase traerLigaUseCase,
-                   CrearAreaUseCase crearAreaUseCase, CrearRadarUseCase crearRadarUseCase,
-                   ListarRadaresUseCase listarRadaresUseCase, ListarRadarUseCase listarRadarUseCase) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8090").build();
-        this.crearLigaUseCase = crearLigaUseCase;
-        this.listarLigasUseCase = listarLigasUseCase;
-        this.traerLigaUseCase = traerLigaUseCase;
-        this.crearAreaUseCase = crearAreaUseCase;
-        this.crearRadarUseCase = crearRadarUseCase;
-        this.listarRadaresUseCase = listarRadaresUseCase;
-        this.listarRadarUseCase = listarRadarUseCase;
-
-    }
 
     static Mono<ServerResponse> notFound = ServerResponse.notFound().build();
 
@@ -110,10 +102,23 @@ public class Handler {
                                 .body(fromValue(persona)))
                 .switchIfEmpty(notFound);
     }
-    public Mono<Object> getAprendices() {
-        var obj = this.webClient.get().uri("/api/collections/aprendices/records")
-        .retrieve().bodyToMono(Object.class);
-            return obj;
+    public Mono<ServerResponse> AgregarAprendiz(ServerRequest serverRequest) {
+        String nombre = serverRequest.pathVariable("nombre");
+        Mono<Aprendiz> aprendizMono = serverRequest.bodyToMono(Aprendiz.class);
+        return aprendizMono.flatMap(aprendiz -> ServerResponse.
+                status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON)
+                .body(agregarAprendizUseCase.agregarAprendiz(nombre, aprendiz), Aprendiz.class));
     }
-
+    public Mono<ServerResponse> crearAprendiz(ServerRequest serverRequest) {
+        Mono<Aprendiz> aprendizMono = serverRequest.bodyToMono(Aprendiz.class);
+        return aprendizMono.flatMap(aprendiz ->
+                ServerResponse.status(HttpStatus.CREATED)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(crearAprendizUseCase.crearAprendiz(aprendiz), Aprendiz.class));
+    }
+    public Mono<ServerResponse> listarAprendices(ServerRequest serverRequest) {
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(listarAprendicesUseCase.listar(), Aprendiz.class);
+    }
 }
