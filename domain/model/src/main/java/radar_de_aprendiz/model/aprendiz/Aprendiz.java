@@ -1,10 +1,9 @@
-package radar_de_aprendiz.model.liga;
+package radar_de_aprendiz.model.aprendiz;
 import lombok.Builder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import radar_de_aprendiz.model.radar.Radar;
 
 import java.util.List;
 
@@ -13,12 +12,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class Liga {
+public class Aprendiz {
     private String id;
+    private String collectionId;
+    private String collectionName;
+    private String created;
+    private String updated;
+
     private String nombre;
-    private String periodo;
-    private List<?> aprendices;
-    private String coach;
-    private String anio;
-    private Radar radar;
+    private List<?> calificaciones;
 }

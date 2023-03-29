@@ -1,12 +1,12 @@
 package radar_de_aprendiz.api;
 
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 
+import radar_de_aprendiz.model.aprendiz.Aprendiz;
 import radar_de_aprendiz.model.area.Area;
 import radar_de_aprendiz.model.radar.Radar;
 import radar_de_aprendiz.usecase.creararea.CrearAreaUseCase;
@@ -21,9 +21,11 @@ import radar_de_aprendiz.model.liga.Liga;
 import radar_de_aprendiz.usecase.crearliga.CrearLigaUseCase;
 import radar_de_aprendiz.usecase.listarligas.ListarLigasUseCase;
 import radar_de_aprendiz.usecase.traerliga.TraerLigaUseCase;
-import reactor.core.publisher.Flux;
+
 
 import reactor.core.publisher.Mono;
+
+
 
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
@@ -56,7 +58,7 @@ public class Handler {
 
     static Mono<ServerResponse> notFound = ServerResponse.notFound().build();
 
-    public Mono<ServerResponse> CreateArea(ServerRequest serverRequest) {
+    public Mono<ServerResponse> AgregarArea(ServerRequest serverRequest) {
         Mono<Area> areaMono = serverRequest.bodyToMono(Area.class);
 
         return areaMono.flatMap(area -> ServerResponse.
@@ -109,9 +111,13 @@ public class Handler {
                                 .body(fromValue(persona)))
                 .switchIfEmpty(notFound);
     }
-    public Flux<?> getAprendices(){
-        return this.webClient.get().uri("/api/collections/aprendices/records")
-                .retrieve().bodyToFlux(Object.class);
-
+    public Mono<ServerResponse> getAprendices(ServerRequest serverRequest) {
+        var obj = this.webClient.get().uri("/api/collections/aprendices/records")
+        .retrieve().bodyToMono(Object.class);
+            return obj.flatMap(aprendices ->
+                ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(fromValue(aprendices)));
     }
+
 }

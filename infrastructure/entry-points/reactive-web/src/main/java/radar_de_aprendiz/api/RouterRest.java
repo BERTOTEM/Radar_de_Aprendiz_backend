@@ -16,7 +16,7 @@ public class RouterRest {
     @Bean
     public RouterFunction<ServerResponse> routerFunction(Handler handler) {
         return route(GET("/api/listarRadares"), handler::getAllRadar)
-                .andRoute(POST("/api/AgregarArea"), handler::CreateArea)
+                .andRoute(POST("/api/AgregarArea"), handler::AgregarArea)
                 .andRoute(POST("/api/CrearRadar"), handler::CreateRadar)
                 .and(route(GET("/api/listarRadar/{nombre}"), handler::getOneRadar));
     }
@@ -42,10 +42,8 @@ public class RouterRest {
 
     @Bean
     public RouterFunction<ServerResponse> traerAprendices(Handler handler) {
-        return route(RequestPredicates.GET("api/mostrarAprendices"), request ->
-                ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-                        .body(handler.getAprendices(), Object.class)
-        );
+        return route(RequestPredicates.GET("api/mostrarAprendices").and(accept(MediaType.APPLICATION_JSON))
+                ,handler::getAprendices);
     }
 
 }
