@@ -9,10 +9,9 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+
 @Repository
-public class MongoRepositoryAdapterL implements LigaRepository
-// implements ModelRepository from domain
-{
+public class MongoRepositoryAdapterL implements LigaRepository {
     private final ReactiveMongoTemplate template;
     public MongoRepositoryAdapterL(ReactiveMongoTemplate template) {
         this.template = template;

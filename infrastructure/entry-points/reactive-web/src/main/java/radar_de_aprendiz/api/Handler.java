@@ -26,6 +26,7 @@ import radar_de_aprendiz.usecase.traerliga.TraerLigaUseCase;
 import reactor.core.publisher.Mono;
 
 
+import java.util.List;
 
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
@@ -60,14 +61,12 @@ public class Handler {
 
     public Mono<ServerResponse> AgregarArea(ServerRequest serverRequest) {
         Mono<Area> areaMono = serverRequest.bodyToMono(Area.class);
-
         return areaMono.flatMap(area -> ServerResponse.
                 status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON)
                 .body(crearAreaUseCase.crearArea(area), Area.class));
     }
     public Mono<ServerResponse> CreateRadar(ServerRequest serverRequest) {
         Mono<Radar> radarMono = serverRequest.bodyToMono(Radar.class);
-
         return radarMono.flatMap(radar -> ServerResponse.
                 status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON)
                 .body(crearRadarUseCase.crearRadar(radar), Radar.class));
@@ -111,13 +110,10 @@ public class Handler {
                                 .body(fromValue(persona)))
                 .switchIfEmpty(notFound);
     }
-    public Mono<ServerResponse> getAprendices(ServerRequest serverRequest) {
+    public Mono<Object> getAprendices() {
         var obj = this.webClient.get().uri("/api/collections/aprendices/records")
         .retrieve().bodyToMono(Object.class);
-            return obj.flatMap(aprendices ->
-                ServerResponse.ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(fromValue(aprendices)));
+            return obj;
     }
 
 }

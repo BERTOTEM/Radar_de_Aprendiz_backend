@@ -17,7 +17,7 @@ public class Liga {
     private String id;
     private String nombre;
     private String periodo;
-    private List<?> aprendices;
+    private Object aprendices;
     private String coach;
     private String anio;
     private Radar radar;
