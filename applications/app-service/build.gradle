@@ -26,4 +26,3 @@ bootJar {
     archiveFileName = "${project.getParent().getName()}.${archiveExtension.get()}"
 }
 
-tasks.jar { enabled = false}
