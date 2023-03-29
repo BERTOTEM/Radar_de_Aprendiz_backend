@@ -13,7 +13,7 @@ spring:
     include: null
   data:
     mongodb:
-      uri: "mongodb+srv://dapevi1997:d04m07a1997@sofka-cluster.as4znqn.mongodb.net/radar?retryWrites=true&w=majority"
+      uri: "mongodb+srv://admin:admin@cluster0.ue6l1xn.mongodb.net/Radar?retryWrites=true&w=majority"
 management:
   endpoints:
     web:
