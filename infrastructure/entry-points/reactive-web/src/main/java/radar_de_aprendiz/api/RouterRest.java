@@ -43,6 +43,18 @@ public class RouterRest {
     }
 
     @Bean
+    public RouterFunction<ServerResponse> EliminarLiga(Handler handler) {
+        return route(DELETE("api/liga/{id}").and(accept(MediaType.APPLICATION_JSON))
+                ,handler::deleteLiga);
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> ActualizarLiga(Handler handler) {
+        return route(PUT("api/liga/{id}").and(accept(MediaType.APPLICATION_JSON))
+                ,handler::updateLiga);
+    }
+
+    @Bean
     public RouterFunction<ServerResponse> traerAprendices(Handler handler) {
         return route(POST("api/liga/aprendiz/{nombre}").and(accept(MediaType.APPLICATION_JSON))
                 ,handler::AgregarAprendiz);
@@ -58,4 +70,5 @@ public class RouterRest {
         return route(GET("api/aprendices").and(accept(MediaType.APPLICATION_JSON))
                 ,handler::listarAprendices);
     }
+
 }
