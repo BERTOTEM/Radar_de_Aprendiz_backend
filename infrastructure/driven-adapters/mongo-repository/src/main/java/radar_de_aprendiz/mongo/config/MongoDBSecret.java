@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 @Builder
 @Getter
-public class MongoDBSecretL {
+public class MongoDBSecret {
 private final String uri;
 
 
