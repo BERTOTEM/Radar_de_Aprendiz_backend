@@ -8,6 +8,7 @@ import reactor.core.publisher.Mono;
 public interface LigaRepository {
     Mono<Liga> findById(String id);
     Mono<Liga> save(Liga liga);
+    Mono<Void> deleteById(String id);
     Flux<Liga> getAll();
     Mono<Liga> addAprendiz(String nombreLiga, Aprendiz aprendiz);
 
