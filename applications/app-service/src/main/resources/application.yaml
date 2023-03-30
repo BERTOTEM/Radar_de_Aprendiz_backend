@@ -13,7 +13,7 @@ spring:
     include: null
   data:
     mongodb:
-      uri: "mongodb://localhost:27017/test"
+      uri: "mongodb+srv://admin:admin@cluster0.ue6l1xn.mongodb.net/Radar?retryWrites=true&w=majority"
 management:
   endpoints:
     web:

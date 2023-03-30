@@ -5,15 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
-
-
 import org.springframework.http.MediaType;
-import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.server.RequestPredicates;
-
-
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
-
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
@@ -22,7 +16,7 @@ public class RouterRest {
     @Bean
     public RouterFunction<ServerResponse> routerFunction(Handler handler) {
         return route(GET("/api/listarRadares"), handler::getAllRadar)
-                .andRoute(POST("/api/AgregarArea"), handler::CreateArea)
+                .andRoute(POST("/api/AgregarArea"), handler::AgregarArea)
                 .andRoute(POST("/api/CrearRadar"), handler::CreateRadar)
                 .and(route(GET("/api/listarRadar/{nombre}"), handler::getOneRadar));
     }
@@ -48,10 +42,18 @@ public class RouterRest {
 
     @Bean
     public RouterFunction<ServerResponse> traerAprendices(Handler handler) {
-        return route(RequestPredicates.GET("api/mostrarAprendices"), request ->
-                ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-                        .body(handler.getAprendices(), Object.class)
-        );
+        return route(POST("api/liga/aprendiz/{nombre}").and(accept(MediaType.APPLICATION_JSON))
+                ,handler::AgregarAprendiz);
     }
 
+    @Bean
+    public RouterFunction<ServerResponse> crearAprendiz(Handler handler) {
+        return route(POST("api/aprendiz").and(accept(MediaType.APPLICATION_JSON))
+                ,handler::crearAprendiz);
+    }
+    @Bean
+    public RouterFunction<ServerResponse> listarAprendices(Handler handler) {
+        return route(GET("api/aprendices").and(accept(MediaType.APPLICATION_JSON))
+                ,handler::listarAprendices);
+    }
 }
