@@ -56,4 +56,10 @@ public class MongoRepositoryAdapterR implements RadarRepository
         return template.findAll(Radar.class);
     }
 
+    @Override
+    public Mono<Void> EliminarRadares(String nombre) {
+        var query = new Query(Criteria.where("nombre").is(nombre));
+        return template.remove(query, Radar.class).then();
+    }
+
 }

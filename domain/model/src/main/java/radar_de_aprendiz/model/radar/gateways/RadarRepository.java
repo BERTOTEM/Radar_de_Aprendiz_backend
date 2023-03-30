@@ -10,4 +10,6 @@ public interface RadarRepository {
     Mono<Radar> AgregarArea(String nombre,Area area);
     Mono<Radar> ListarRadar(String nombre);
     Flux<Radar> ListarRadares();
+    Mono<Void> EliminarRadares(String nombre);
+
 }
