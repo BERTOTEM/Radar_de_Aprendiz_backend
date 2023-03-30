@@ -27,6 +27,17 @@ public class MongoRepositoryAdapterL implements LigaRepository {
     public Mono<Liga> save(Liga liga) {
         return template.save(liga);
     }
+
+    @Override
+    public Mono<Void> deleteById(String id) {
+        var query = new Query(Criteria.where("id").is(id));
+        if(id!=null){
+            return template.remove(query, Liga.class).then();
+        }else{
+            return Mono.empty();
+        }
+    }
+
     @Override
     public Flux<Liga> getAll(){
         return template.findAll(Liga.class);

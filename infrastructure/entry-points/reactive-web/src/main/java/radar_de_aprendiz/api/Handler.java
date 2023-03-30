@@ -14,6 +14,7 @@ import radar_de_aprendiz.usecase.agregaraprendiz.AgregarAprendizUseCase;
 import radar_de_aprendiz.usecase.crearaprendiz.CrearAprendizUseCase;
 import radar_de_aprendiz.usecase.creararea.CrearAreaUseCase;
 import radar_de_aprendiz.usecase.crearradar.CrearRadarUseCase;
+import radar_de_aprendiz.usecase.eliminarliga.EliminarLigaUseCase;
 import radar_de_aprendiz.usecase.listaraprendices.ListarAprendicesUseCase;
 import radar_de_aprendiz.usecase.listarradar.ListarRadarUseCase;
 import radar_de_aprendiz.usecase.listarradares.ListarRadaresUseCase;
@@ -41,6 +42,8 @@ public class Handler {
     private final CrearLigaUseCase crearLigaUseCase;
     private final ListarLigasUseCase listarLigasUseCase;
     private final TraerLigaUseCase traerLigaUseCase;
+
+    private final EliminarLigaUseCase eliminarLigaUseCase;
     private final AgregarAprendizUseCase agregarAprendizUseCase;
     private final CrearAprendizUseCase crearAprendizUseCase;
     private final ListarAprendicesUseCase listarAprendicesUseCase;
@@ -102,6 +105,29 @@ public class Handler {
                                 .body(fromValue(persona)))
                 .switchIfEmpty(notFound);
     }
+
+    public Mono<ServerResponse> updateLiga(ServerRequest serverRequest){
+        String id = serverRequest.pathVariable("id");
+        Mono<Liga> updatedLiga = serverRequest.bodyToMono(Liga.class).log()
+                .flatMap(liga -> traerLigaUseCase.traerLiga(String.valueOf(id)).log()
+                        .flatMap(oldliga ->{
+                            oldliga.setCoach(liga.getCoach());
+                            oldliga.setAnio(liga.getAnio());
+                            return crearLigaUseCase.save(oldliga).log();
+                        }));
+        return updatedLiga.flatMap(liga -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(fromValue(liga)))
+                .switchIfEmpty(notFound);
+    }
+
+    public Mono<ServerResponse> deleteLiga(ServerRequest serverRequest){
+        String id = serverRequest.pathVariable("id");
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(eliminarLigaUseCase.eliminarLiga(id), Void.class);
+    }
+
     public Mono<ServerResponse> AgregarAprendiz(ServerRequest serverRequest) {
         String nombre = serverRequest.pathVariable("nombre");
         Mono<Aprendiz> aprendizMono = serverRequest.bodyToMono(Aprendiz.class);
