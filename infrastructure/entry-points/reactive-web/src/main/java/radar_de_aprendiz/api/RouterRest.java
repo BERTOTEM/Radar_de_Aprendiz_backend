@@ -18,6 +18,7 @@ public class RouterRest {
         return route(GET("/api/listarRadares"), handler::getAllRadar)
                 .andRoute(POST("/api/AgregarArea"), handler::AgregarArea)
                 .andRoute(POST("/api/CrearRadar"), handler::CreateRadar)
+                .andRoute(POST("/api/ActualizarArear/{numero}"), handler::ActualizarArea)
                 .andRoute(DELETE("/api/EliminarRadar/{nombre}"), handler::EliminarRadar)
                 .and(route(GET("/api/listarRadar/{nombre}"), handler::getOneRadar));
     }

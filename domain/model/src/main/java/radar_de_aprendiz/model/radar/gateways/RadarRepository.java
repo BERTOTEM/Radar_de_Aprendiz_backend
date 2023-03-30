@@ -12,4 +12,6 @@ public interface RadarRepository {
     Flux<Radar> ListarRadares();
     Mono<Void> EliminarRadares(String nombre);
 
+    Mono<Radar>ActualizarArea(String nombreRadar, Area area, String numero);
+
 }

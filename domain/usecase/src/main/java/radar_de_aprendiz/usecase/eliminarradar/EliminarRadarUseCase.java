@@ -10,7 +10,7 @@ import java.util.Objects;
 public class EliminarRadarUseCase {
     private final RadarRepository radarRepository;
     public Mono<Void> EliminarRadar(String nombre) {
-        Objects.requireNonNull(nombre, "Id is required");
+        Objects.requireNonNull(nombre, "nombre is required");
         return radarRepository.EliminarRadares(nombre);
     }
 

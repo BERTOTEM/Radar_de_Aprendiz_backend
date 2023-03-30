@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import radar_de_aprendiz.model.aprendiz.Aprendiz;
 import radar_de_aprendiz.model.area.Area;
 import radar_de_aprendiz.model.radar.Radar;
+import radar_de_aprendiz.usecase.actualizararea.ActualizarAreaUseCase;
 import radar_de_aprendiz.usecase.agregaraprendiz.AgregarAprendizUseCase;
 import radar_de_aprendiz.usecase.crearaprendiz.CrearAprendizUseCase;
 import radar_de_aprendiz.usecase.creararea.CrearAreaUseCase;
@@ -50,6 +51,8 @@ public class Handler {
     private final ListarRadaresUseCase listarRadaresUseCase;
     private final ListarRadarUseCase listarRadarUseCase;
     private  final EliminarRadarUseCase eliminarRadarUseCase;
+
+    private  final ActualizarAreaUseCase actualizarAreaUseCase;
 
     static Mono<ServerResponse> notFound = ServerResponse.notFound().build();
 
@@ -131,6 +134,14 @@ public class Handler {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(eliminarRadarUseCase.EliminarRadar(nombre), Void.class);
 
+    }
+
+    public Mono<ServerResponse> ActualizarArea(ServerRequest serverRequest) {
+        String numero = serverRequest.pathVariable("numero");
+        Mono<Area> areaMono = serverRequest.bodyToMono(Area.class);
+        return areaMono.flatMap(area -> ServerResponse.
+                status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON)
+                .body(actualizarAreaUseCase.ActualizarArea(area,numero), Area.class));
     }
 
 
