@@ -1,5 +1,6 @@
 package radar_de_aprendiz.mongo;
 
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
@@ -55,5 +56,21 @@ public class MongoRepositoryAdapterR implements RadarRepository
     public Flux<Radar> ListarRadares() {
         return template.findAll(Radar.class);
     }
+
+    @Override
+    public Mono<Void> EliminarRadares(String nombre) {
+        var query = new Query(Criteria.where("nombre").is(nombre));
+        return template.remove(query, Radar.class).then();
+    }
+
+    @Override
+    public Mono<Radar> ActualizarArea(String nombreRadar, Area area, String numero) {
+        Query query = new Query(Criteria.where("nombre").is(nombreRadar));
+        Update update = new Update().set("areas."+numero, area);
+
+        return template.findAndModify(query, update,Radar.class,"radar");
+
+    }
+
 
 }

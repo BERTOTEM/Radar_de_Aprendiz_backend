@@ -10,11 +10,16 @@ import org.springframework.stereotype.Component;
 import radar_de_aprendiz.model.aprendiz.Aprendiz;
 import radar_de_aprendiz.model.area.Area;
 import radar_de_aprendiz.model.radar.Radar;
+import radar_de_aprendiz.usecase.actualizararea.ActualizarAreaUseCase;
 import radar_de_aprendiz.usecase.agregaraprendiz.AgregarAprendizUseCase;
 import radar_de_aprendiz.usecase.crearaprendiz.CrearAprendizUseCase;
 import radar_de_aprendiz.usecase.creararea.CrearAreaUseCase;
 import radar_de_aprendiz.usecase.crearradar.CrearRadarUseCase;
+
+import radar_de_aprendiz.usecase.eliminarradar.EliminarRadarUseCase;
+
 import radar_de_aprendiz.usecase.eliminarliga.EliminarLigaUseCase;
+
 import radar_de_aprendiz.usecase.listaraprendices.ListarAprendicesUseCase;
 import radar_de_aprendiz.usecase.listarradar.ListarRadarUseCase;
 import radar_de_aprendiz.usecase.listarradares.ListarRadaresUseCase;
@@ -51,6 +56,9 @@ public class Handler {
     private final CrearRadarUseCase crearRadarUseCase;
     private final ListarRadaresUseCase listarRadaresUseCase;
     private final ListarRadarUseCase listarRadarUseCase;
+    private  final EliminarRadarUseCase eliminarRadarUseCase;
+
+    private  final ActualizarAreaUseCase actualizarAreaUseCase;
 
     static Mono<ServerResponse> notFound = ServerResponse.notFound().build();
 
@@ -147,4 +155,24 @@ public class Handler {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(listarAprendicesUseCase.listar(), Aprendiz.class);
     }
+
+    public Mono<ServerResponse> EliminarRadar(ServerRequest serverRequest) {
+        String nombre = serverRequest.pathVariable("nombre");
+
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(eliminarRadarUseCase.EliminarRadar(nombre), Void.class);
+
+    }
+
+    public Mono<ServerResponse> ActualizarArea(ServerRequest serverRequest) {
+        String numero = serverRequest.pathVariable("numero");
+        Mono<Area> areaMono = serverRequest.bodyToMono(Area.class);
+        return areaMono.flatMap(area -> ServerResponse.
+                status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON)
+                .body(actualizarAreaUseCase.ActualizarArea(area,numero), Area.class));
+    }
+
+
+
 }
