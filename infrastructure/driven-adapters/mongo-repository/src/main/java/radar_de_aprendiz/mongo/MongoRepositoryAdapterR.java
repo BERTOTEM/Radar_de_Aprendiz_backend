@@ -14,6 +14,9 @@ import radar_de_aprendiz.model.radar.gateways.RadarRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Repository
 public class MongoRepositoryAdapterR implements RadarRepository
 
@@ -61,6 +64,19 @@ public class MongoRepositoryAdapterR implements RadarRepository
     public Mono<Void> EliminarRadares(String nombre) {
         var query = new Query(Criteria.where("nombre").is(nombre));
         return template.remove(query, Radar.class).then();
+    }
+
+    @Override
+    public Mono<Void> EliminarArea(String index,String nombreRadar) {
+        Query query = new Query(Criteria.where("nombre").is(nombreRadar));
+        Mono<Radar> radarMono = template.findOne(query, Radar.class, "radar");
+
+        return radarMono.flatMap(radar -> {
+            List<Area> updatedAreaList = new ArrayList<>(radar.getAreas());
+            updatedAreaList.remove(Integer.parseInt(index));
+            Update update = new Update().set("areas", updatedAreaList);
+            return template.updateFirst(query, update, Radar.class, "radar").then();
+        });
     }
 
     @Override

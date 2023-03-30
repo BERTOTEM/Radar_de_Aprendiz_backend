@@ -16,6 +16,7 @@ import radar_de_aprendiz.usecase.crearaprendiz.CrearAprendizUseCase;
 import radar_de_aprendiz.usecase.creararea.CrearAreaUseCase;
 import radar_de_aprendiz.usecase.crearradar.CrearRadarUseCase;
 
+import radar_de_aprendiz.usecase.eliminararea.EliminarAreaUseCase;
 import radar_de_aprendiz.usecase.eliminarradar.EliminarRadarUseCase;
 
 import radar_de_aprendiz.usecase.eliminarliga.EliminarLigaUseCase;
@@ -57,6 +58,7 @@ public class Handler {
     private final ListarRadaresUseCase listarRadaresUseCase;
     private final ListarRadarUseCase listarRadarUseCase;
     private  final EliminarRadarUseCase eliminarRadarUseCase;
+    private  final EliminarAreaUseCase eliminarAreaUseCase;
 
     private  final ActualizarAreaUseCase actualizarAreaUseCase;
 
@@ -162,6 +164,14 @@ public class Handler {
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(eliminarRadarUseCase.EliminarRadar(nombre), Void.class);
+
+    }
+    public Mono<ServerResponse> EliminarArea(ServerRequest serverRequest) {
+        String nombre = serverRequest.pathVariable("nombre");
+        String index = serverRequest.pathVariable("index");
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(eliminarAreaUseCase.EliminarArea(nombre,index), Void.class);
 
     }
 
