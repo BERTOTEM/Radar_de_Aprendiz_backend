@@ -14,9 +14,9 @@ public class Area {
     private String area;
     private String radarNombre;
     private String descriptor;
-    private int factual;
-    private int conceptual;
-    private int procedimental;
-    private int metacognitivo;
-    private int nivel;
+    private Double factual;
+    private Double conceptual;
+    private Double procedimental;
+    private Double metacognitivo;
+    private Double nivel;
 }
