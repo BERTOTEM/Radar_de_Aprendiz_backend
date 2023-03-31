@@ -62,6 +62,12 @@ public class RouterRest {
     }
 
     @Bean
+    public RouterFunction<ServerResponse> traerRadar(Handler handler) {
+        return route(POST("api/liga/radar/{nombre}").and(accept(MediaType.APPLICATION_JSON))
+                ,handler::AgregarRadar);
+    }
+
+    @Bean
     public RouterFunction<ServerResponse> crearAprendiz(Handler handler) {
         return route(POST("api/aprendiz").and(accept(MediaType.APPLICATION_JSON))
                 ,handler::crearAprendiz);

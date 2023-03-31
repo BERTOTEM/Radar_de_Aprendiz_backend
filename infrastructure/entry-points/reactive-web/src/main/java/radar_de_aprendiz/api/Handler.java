@@ -12,6 +12,7 @@ import radar_de_aprendiz.model.area.Area;
 import radar_de_aprendiz.model.radar.Radar;
 import radar_de_aprendiz.usecase.actualizararea.ActualizarAreaUseCase;
 import radar_de_aprendiz.usecase.agregaraprendiz.AgregarAprendizUseCase;
+import radar_de_aprendiz.usecase.agregarradar.AgregarRadarUseCase;
 import radar_de_aprendiz.usecase.crearaprendiz.CrearAprendizUseCase;
 import radar_de_aprendiz.usecase.creararea.CrearAreaUseCase;
 import radar_de_aprendiz.usecase.crearradar.CrearRadarUseCase;
@@ -48,7 +49,7 @@ public class Handler {
     private final CrearLigaUseCase crearLigaUseCase;
     private final ListarLigasUseCase listarLigasUseCase;
     private final TraerLigaUseCase traerLigaUseCase;
-
+    private final AgregarRadarUseCase agregarRadarUseCase;
     private final EliminarLigaUseCase eliminarLigaUseCase;
     private final AgregarAprendizUseCase agregarAprendizUseCase;
     private final CrearAprendizUseCase crearAprendizUseCase;
@@ -100,6 +101,7 @@ public class Handler {
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(crearLigaUseCase.save(liga), Liga.class));
     }
+
     public Mono<ServerResponse> getLigas(ServerRequest serverRequest) {
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
@@ -144,6 +146,13 @@ public class Handler {
         return aprendizMono.flatMap(aprendiz -> ServerResponse.
                 status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON)
                 .body(agregarAprendizUseCase.agregarAprendiz(nombre, aprendiz), Aprendiz.class));
+    }
+    public Mono<ServerResponse> AgregarRadar(ServerRequest serverRequest) {
+        String nombre = serverRequest.pathVariable("nombre");
+        Mono<Radar> radarMono = serverRequest.bodyToMono(Radar.class);
+        return radarMono.flatMap(radar -> ServerResponse.
+                status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON)
+                .body(agregarRadarUseCase.agregarRadar(nombre, radar), Radar.class));
     }
     public Mono<ServerResponse> crearAprendiz(ServerRequest serverRequest) {
         Mono<Aprendiz> aprendizMono = serverRequest.bodyToMono(Aprendiz.class);
