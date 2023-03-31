@@ -8,6 +8,7 @@ import radar_de_aprendiz.model.aprendiz.Aprendiz;
 import radar_de_aprendiz.model.liga.Liga;
 import radar_de_aprendiz.model.liga.gateways.LigaRepository;
 import org.springframework.stereotype.Repository;
+import radar_de_aprendiz.model.radar.Radar;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -54,6 +55,20 @@ public class MongoRepositoryAdapterL implements LigaRepository {
             }
         });
     }
+
+    @Override
+    public Mono<Liga> addRadar(String nombre, Radar radar) {
+        Query query = new Query(Criteria.where("nombre").is(nombre));
+        return template.findOne(query, Liga.class).flatMap(liga -> {
+            if(liga!=null){
+                Update update = new Update().set("radar", radar);
+                return template.updateFirst(query, update, Liga.class).then(template.findOne(query, Liga.class));
+            }else{
+                return Mono.empty();
+            }
+        });
+    }
+
     @Override
     public Mono<Aprendiz> crearAprendiz(Aprendiz aprendiz) {
         return template.save(aprendiz);
