@@ -17,4 +17,5 @@ public interface LigaRepository {
 
     Mono<Aprendiz> crearAprendiz(Aprendiz aprendiz);
     Flux<Aprendiz> listarAprendices();
+    Flux<Liga> ligaPorAprendiz(String correo);
 }

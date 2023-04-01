@@ -22,6 +22,7 @@ import radar_de_aprendiz.usecase.eliminarradar.EliminarRadarUseCase;
 
 import radar_de_aprendiz.usecase.eliminarliga.EliminarLigaUseCase;
 
+import radar_de_aprendiz.usecase.ligaporaprendiz.LigaPorAprendizUseCase;
 import radar_de_aprendiz.usecase.listaraprendices.ListarAprendicesUseCase;
 import radar_de_aprendiz.usecase.listarradar.ListarRadarUseCase;
 import radar_de_aprendiz.usecase.listarradares.ListarRadaresUseCase;
@@ -35,6 +36,7 @@ import radar_de_aprendiz.usecase.listarligas.ListarLigasUseCase;
 import radar_de_aprendiz.usecase.traerliga.TraerLigaUseCase;
 
 
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -62,6 +64,7 @@ public class Handler {
     private  final EliminarAreaUseCase eliminarAreaUseCase;
 
     private  final ActualizarAreaUseCase actualizarAreaUseCase;
+    private  final LigaPorAprendizUseCase ligaPorAprendizUseCase;
 
     static Mono<ServerResponse> notFound = ServerResponse.notFound().build();
 
@@ -191,7 +194,13 @@ public class Handler {
                 status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON)
                 .body(actualizarAreaUseCase.ActualizarArea(area,numero), Area.class));
     }
+    public Mono<ServerResponse> GetLigasNombre(ServerRequest serverRequest) {
+        String correo = serverRequest.pathVariable("nombre");
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(ligaPorAprendizUseCase.LigaPorAprendiz(correo), Liga.class);
 
+    }
 
 
 }

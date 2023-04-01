@@ -21,6 +21,7 @@ public class RouterRest {
                 .andRoute(POST("/api/ActualizarArear/{numero}"), handler::ActualizarArea)
                 .andRoute(DELETE("/api/EliminarRadar/{nombre}"), handler::EliminarRadar)
                 .andRoute(DELETE("/api/EliminarArea/{nombre}/{index}"), handler::EliminarArea)
+                .andRoute(GET("/api/LigaAprendiz/{correo}"), handler::GetLigasNombre)
                 .and(route(GET("/api/listarRadar/{nombre}"), handler::getOneRadar));
     }
 

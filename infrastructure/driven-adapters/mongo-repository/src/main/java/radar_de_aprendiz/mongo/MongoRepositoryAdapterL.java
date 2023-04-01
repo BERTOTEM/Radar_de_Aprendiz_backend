@@ -77,4 +77,10 @@ public class MongoRepositoryAdapterL implements LigaRepository {
     public Flux<Aprendiz> listarAprendices() {
         return template.findAll(Aprendiz.class);
     }
+
+    @Override
+    public Flux<Liga> ligaPorAprendiz(String correo) {
+        Query query = new Query(Criteria.where("aprendices").elemMatch(Criteria.where("correo").is(correo)));
+        return template.find(query, Liga.class);
+    }
 }
