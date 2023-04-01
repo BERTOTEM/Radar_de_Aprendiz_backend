@@ -14,6 +14,6 @@ import java.util.List;
 @Builder(toBuilder = true)
 public class Aprendiz {
     private String nombre;
-    private String Correo;
+    private String correo;
     private List<Double> calificaciones;
 }

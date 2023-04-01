@@ -194,8 +194,8 @@ public class Handler {
                 status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON)
                 .body(actualizarAreaUseCase.ActualizarArea(area,numero), Area.class));
     }
-    public Mono<ServerResponse> GetLigasNombre(ServerRequest serverRequest) {
-        String correo = serverRequest.pathVariable("nombre");
+    public Mono<ServerResponse> GetLigasCorreo(ServerRequest serverRequest) {
+        String correo = serverRequest.pathVariable("correo");
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(ligaPorAprendizUseCase.LigaPorAprendiz(correo), Liga.class);
