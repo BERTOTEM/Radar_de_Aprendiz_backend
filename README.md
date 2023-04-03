@@ -144,13 +144,45 @@ Este módulo es el más externo de la arquitectura, es el encargado de ensamblar
 ![Image text](./img/SalidaListarAprendices.png)
 
 
+### Punto de entrada Actualizar Área
+![Image text](./img/EntradaActualizarArea.png)
+
+
+### Punto de salida Actualizar Área
+![Image text](./img/SalidaActualizarArea.png)
+
+
+### Punto de entrada Eliminar Área
+![Image text](./img/EntradaEliminarArea.png)
+
+
+### Punto de salida Eliminar Área
+![Image text](./img/SalidaEliminarArea.png)
+
+
+### Punto de entrada Consultar un aprendiz
+![Image text](./img/EntradaListarUnAprendiz.png)
+
+
+### Punto de salida Consultar un aprendiz
+![Image text](./img/SalidaListarUnAprendiz.png)
+
+
+### Punto de entrada Consultar un radar
+![Image text](./img/EntradaTraerUnRadar.png)
+
+
+### Punto de salida Consultar un radar
+![Image text](./img/SalidaTraerUnRadar.png)
+
+
 ## Autores
 
-* **Julian Mazo Arroyave**
-* **Andrés Felipe Castro Manzano**
-* **David Santiago Benjumea Perez**
-* **Daniel Perez Vitola**
-* **Valentina Santa Muñoz** 
+* [Julian Mazo Arroyave](https://github.com/BERTOTEM)
+* [Andrés Castro](https://github.com/Nirsch95) :wolf:
+* [David Santiago Benjumea Perez](https://github.com/dsbpajedrez)
+* [Daniel Perez Vitola](https://github.com/dapevi1997)
+* [Valentina Santa Muñoz](https://github.com/Valen2605)
 
 
 
