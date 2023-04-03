@@ -147,9 +147,9 @@ Este módulo es el más externo de la arquitectura, es el encargado de ensamblar
 ## Autores
 
 * **Julian Mazo Arroyave**
-* * **Andrés Felipe Castro Manzano**
-* * **David Santiago Benjumea Perez**
-* * **Daniel Perez Vitola**
+* **Andrés Felipe Castro Manzano**
+* **David Santiago Benjumea Perez**
+* **Daniel Perez Vitola**
 * **Valentina Santa Muñoz** 
 
 
