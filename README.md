@@ -45,3 +45,105 @@ Los entry points representan los puntos de entrada de la aplicación o el inicio
 Este módulo es el más externo de la arquitectura, es el encargado de ensamblar los distintos módulos, resolver las dependencias y crear los beans de los casos de use (UseCases) de forma automática, inyectando en éstos instancias concretas de las dependencias declaradas. Además inicia la aplicación (es el único módulo del proyecto donde encontraremos la función “public static void main(String[] args)”.
 
 **Los beans de los casos de uso se disponibilizan automaticamente gracias a un '@ComponentScan' ubicado en esta capa.**
+
+
+### Punto de entrada crear radar
+![Image text](./img/EntradaCrearRadar.png)
+
+
+### Punto de salida crear radar
+![Image text](./img/SalidaCrearRadar.png)
+
+
+### Punto de entrada Listar radares
+![Image text](./img/EntradaListarRadares.png)
+
+
+### Punto de salida Listar radares
+![Image text](./img/SalidaTraerRadares.png)
+
+
+### Punto de entrada Agregar Area
+![Image text](./img/EntradaCrearArea.png)
+
+
+### Punto de salida Agregar Area
+![Image text](./img/SalidaCrearArea.png)
+
+
+### Punto de entrada Eliminar Radar
+![Image text](./img/EntradaEliminarRadar.png)
+
+
+### Punto de salida Eliminar Radar
+![Image text](./img/SalidaEliminarRadar.png)
+
+
+### Punto de entrada guardar liga
+![Image text](./img/EntradaCrearLiga.png)
+
+
+### Punto de salida guardar liga
+![Image text](./img/SalidaCrearLiga.png)
+
+
+### Punto de entrada Listar Ligas
+![Image text](./img/EntradaListarLigas.png)
+
+
+### Punto de salida Listar Ligas
+![Image text](./img/SalidaListarLigas.png)
+
+
+### Punto de entrada Traer Liga
+![Image text](./img/EntradaTraerLigaPorId.png)
+
+
+### Punto de salida Traer Liga
+![Image text](./img/SalidaTraerLigaPorId.png)
+
+
+### Punto de entrada Eliminar Liga
+![Image text](./img/EntradaEliminarLiga.png)
+
+
+### Punto de salida Eliminar Liga
+![Image text](./img/SalidaEliminarLiga.png)
+
+
+### Punto de entrada Actualizar Liga
+![Image text](./img/EntradaActualizarLiga.png)
+
+
+### Punto de salida Actualizar liga
+![Image text](./img/SalidaActualizarLiga.png)
+
+
+
+### Punto de entrada Traer Radar
+![Image text](./img/EntradaTraerUnRadar.png)
+
+
+### Punto de salida Traer Radar
+![Image text](./img/SalidaTraerUnRadar.png)
+
+
+### Punto de entrada Crear Aprendiz
+![Image text](./img/EntradaCrearAprendiz.png)
+
+
+### Punto de salida Crear Aprendiz
+![Image text](./img/SalidaCrearAprendiz.png)
+
+
+### Punto de entrada listar aprendices
+![Image text](./img/EntradaListarAprendices.png)
+
+
+### Punto de salida listar aprendices
+![Image text](./img/SalidaListarAprendices.png)
+
+
+
+
+
