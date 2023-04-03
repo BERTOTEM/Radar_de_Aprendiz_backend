@@ -144,6 +144,14 @@ Este módulo es el más externo de la arquitectura, es el encargado de ensamblar
 ![Image text](./img/SalidaListarAprendices.png)
 
 
+## Autores
+
+* **Julian Mazo Arroyave**
+* * **Andrés Felipe Castro Manzano**
+* * **David Santiago Benjumea Perez**
+* * **Daniel Perez Vitola**
+* **Valentina Santa Muñoz** 
+
 
 
 
